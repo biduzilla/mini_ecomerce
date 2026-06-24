@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ms_auth
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://localhost:8071
+
+server:
+  port: 8081
+

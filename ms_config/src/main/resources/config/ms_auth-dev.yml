@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: ms_auth
+  flyway:
+    depends-on: entityManagerFactory
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ms
+    username: ms_user
+    password: ms123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    format_sql: true
+
+server:
+  port: 8081
+
+security:
+  jwt:
+    private-key: classpath:keys/privateKey.pem
+    public-key: classpath:keys/publicKey.pem
+    expiration-time: 3600000
+    refresh-expiration-time: 604800000

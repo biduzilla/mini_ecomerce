@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+ms_auth/src/main/resources/keys
+src/main/resources/keys
