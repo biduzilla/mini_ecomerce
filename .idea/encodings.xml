@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/ms_auth/src/main/kotlin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms_config/src/main/kotlin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms_product/src/main/kotlin" charset="UTF-8" />
   </component>
 </project>

@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+ms_product/src/main/resources/keys/publicKey.pem
+*.pem
+*.key

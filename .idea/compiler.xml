@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ms_auth" />
         <module name="ms_config" />
+        <module name="ms_product" />
       </profile>
     </annotationProcessing>
   </component>
@@ -15,6 +16,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ms_auth" options="-parameters" />
       <module name="ms_config" options="-parameters" />
+      <module name="ms_product" options="-parameters" />
     </option>
   </component>
 </project>
