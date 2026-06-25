@@ -28,5 +28,17 @@ interface StockRepository: JpaRepository<Stock, UUID> {
         where s.id = :stockId
     """
     )
-    fun findByID(@Param("stockId") productId: UUID): Stock?
+    fun findByID(@Param("stockId") stockId: UUID): Stock?
+
+    @Query(
+        """
+        select s
+        from Stock s
+        where s.productId = :productId
+    """
+    )
+    fun findByProductId(@Param("productId") productId: UUID):Stock?
+
+    @Query("SELECT s FROM Stock s WHERE s.productId IN :ids")
+    fun findAllByProductIdIn(@Param("ids") ids: List<UUID>): List<Stock>
 }

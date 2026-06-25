@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/ms_auth/pom.xml" />
         <option value="$PROJECT_DIR$/ms_product/pom.xml" />
         <option value="$PROJECT_DIR$/ms_stock/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_order/pom.xml" />
       </list>
     </option>
   </component>

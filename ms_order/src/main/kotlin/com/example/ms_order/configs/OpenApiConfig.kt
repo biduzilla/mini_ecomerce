@@ -1,4 +1,4 @@
-package com.example.ms_product.configs
+package com.example.ms_order.configs
 
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Contact
@@ -15,9 +15,9 @@ class OpenApiConfig {
         return OpenAPI()
             .info(
                 Info()
-                    .title("Product Microservice API")
+                    .title("Order Microservice API")
                     .version("1.0.0")
-                    .description("API para gerenciamento de produtos - Spring Boot 4")
+                    .description("API para gerenciamento de pedidos com integração com microsserviço de stock")
                     .contact(
                         Contact()
                             .name("Time de Engenharia")
@@ -27,14 +27,14 @@ class OpenApiConfig {
                         License().name("MIT").url("https://opensource.org/licenses/MIT")
                     )
             )
-//            .components(
-//                Components().addSecuritySchemes(
-//                    "BearerAuth",
-//                    SecurityScheme()
-//                        .type(SecurityScheme.Type.HTTP)
-//                        .scheme("bearer")
-//                        .bearerFormat("JWT")
-//                )
-//            )
+//         .components(
+//             Components().addSecuritySchemes(
+//                 "BearerAuth",
+//                 SecurityScheme()
+//                     .type(SecurityScheme.Type.HTTP)
+//                     .scheme("bearer")
+//                     .bearerFormat("JWT")
+//             )
+//         )
     }
 }

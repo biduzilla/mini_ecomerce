@@ -1,10 +1,6 @@
 package com.example.ms_stock.controllers
 
-import com.example.ms_stock.dtos.CreateStockRequest
-import com.example.ms_stock.dtos.ErrorDTO
-import com.example.ms_stock.dtos.StockResponseDTO
-import com.example.ms_stock.dtos.UpdateStockRequest
-import com.example.ms_stock.dtos.toModel
+import com.example.ms_stock.dtos.*
 import com.example.ms_stock.models.toResponseDTO
 import com.example.ms_stock.services.IStockService
 import io.swagger.v3.oas.annotations.Operation
@@ -65,7 +61,11 @@ class StockController(
         )
     )
     fun findById(
-        @Parameter(description = "ID único do estoque", required = true, example = "550e8400-e29b-41d4-a716-446655440000")
+        @Parameter(
+            description = "ID único do estoque",
+            required = true,
+            example = "550e8400-e29b-41d4-a716-446655440000"
+        )
         @PathVariable id: UUID
     ): ResponseEntity<StockResponseDTO> {
         val stock = stockService.findById(id)
@@ -152,5 +152,31 @@ class StockController(
     ): ResponseEntity<Void> {
         stockService.deleteById(id)
         return ResponseEntity.noContent().build()
+    }
+
+    @PostMapping("/check-availability")
+    @Operation(
+        summary = "Verificar disponibilidade de estoque",
+        description = "Recebe uma lista de itens (productId e quantidade) e verifica se há estoque suficiente para cada um. Retorna 200 se todos estiverem disponíveis ou 409 com detalhes dos itens indisponíveis."
+    )
+    @ApiResponses(
+        ApiResponse(
+            responseCode = "200",
+            description = "Todos os itens possuem estoque suficiente",
+            content = [Content(schema = Schema(implementation = AvailabilityCheckResponse::class))]
+        ),
+        ApiResponse(
+            responseCode = "409",
+            description = "Pelo menos um item não possui estoque suficiente",
+            content = [Content(schema = Schema(implementation = AvailabilityCheckResponse::class))]
+        )
+    )
+    fun checkAvailability(@RequestBody request: AvailabilityCheckRequest): ResponseEntity<AvailabilityCheckResponse> {
+        val response = stockService.checkAvailability(request)
+        return if (response.available) {
+            ResponseEntity.ok(response)
+        } else {
+            ResponseEntity.status(HttpStatus.CONFLICT).body(response)
+        }
     }
 }
