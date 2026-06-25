@@ -1,7 +1,7 @@
 package com.example.ms_order.enums
 
 enum class OrderStatusEnum {
-    AWAITING_STOCK,
+    PENDING,
     APPROVED,
     REJECTED
 }
