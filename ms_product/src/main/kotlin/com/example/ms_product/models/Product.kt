@@ -2,11 +2,15 @@ package com.example.ms_product.models
 
 import com.example.ms_product.dtos.ProductDTO
 import jakarta.persistence.*
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.SQLRestriction
 import java.math.BigDecimal
 import java.util.*
 
 @Entity
 @Table(name = "PRODUCTS")
+@SQLRestriction("deleted <> true")
+@SQLDelete(sql = "UPDATE PRODUCTS SET deleted = true, updated_at = NOW() WHERE id = ?")
 data class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
