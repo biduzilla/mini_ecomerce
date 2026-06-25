@@ -34,3 +34,14 @@ security:
 product:
   service:
     url: http://device-service:8083/api/products
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json

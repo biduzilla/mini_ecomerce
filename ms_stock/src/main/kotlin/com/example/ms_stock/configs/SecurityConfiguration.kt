@@ -31,7 +31,18 @@ class SecurityConfiguration(
         http
             .csrf { it.disable() }
             .authorizeHttpRequests { auth ->
-                auth.anyRequest().hasAuthority("ROLE_ADMIN")
+                auth
+                    .requestMatchers(
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/api-docs/**",
+                        "/v3/api-docs/**",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                    ).permitAll()
+
+                    .requestMatchers("/actuator/health").permitAll()
+                    .anyRequest().hasAuthority("ROLE_ADMIN")
             }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .exceptionHandling { it.authenticationEntryPoint(customAuthenticationEntryPoint) }

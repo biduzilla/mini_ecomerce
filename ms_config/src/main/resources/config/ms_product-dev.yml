@@ -20,3 +20,14 @@ server:
 security:
   jwt:
     public-key: classpath:keys/publicKey.pem
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
