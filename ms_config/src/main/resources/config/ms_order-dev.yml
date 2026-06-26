@@ -37,6 +37,10 @@ spring:
 server:
   port: 8082
 
+order:
+  service:
+    url: http://localhost:8084/api/stocks
+
 security:
   jwt:
     public-key: classpath:keys/publicKey.pem
