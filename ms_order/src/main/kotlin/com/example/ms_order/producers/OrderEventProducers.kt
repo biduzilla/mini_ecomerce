@@ -17,7 +17,7 @@ class OrderEventProducers(
     fun publishOrderCreated(event: OrderCreatedEvent) {
         kafkaTemplate.send(
             TOPIC,
-            event.eventId.toString(),
+            event.orderId.toString(),
             event,
         ).whenComplete { _, ex ->
             if (ex == null) {

@@ -17,7 +17,7 @@ class OpenApiConfig {
                 Info()
                     .title("Order Microservice API")
                     .version("1.0.0")
-                    .description("API para gerenciamento de pedidos com integração com microsserviço de stock")
+                    .description("API para gerenciamento de pedidos com validação de estoque e eventos Kafka")
                     .contact(
                         Contact()
                             .name("Time de Engenharia")

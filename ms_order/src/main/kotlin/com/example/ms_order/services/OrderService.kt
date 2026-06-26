@@ -5,15 +5,22 @@ import com.example.kafka.event.OrderItemEvent
 import com.example.ms_order.clients.StockClient
 import com.example.ms_order.dtos.AvailabilityCheckRequest
 import com.example.ms_order.dtos.ItemRequest
+import com.example.ms_order.enums.OrderStatusEnum
 import com.example.ms_order.exceptions.BadRequestException
+import com.example.ms_order.exceptions.NotFoundException
 import com.example.ms_order.models.Order
 import com.example.ms_order.producers.OrderEventProducers
 import com.example.ms_order.repositories.OrderRepository
 import jakarta.transaction.Transactional
+import java.util.*
 
 interface IOrderService {
-    fun create(order: Order): Order
+    fun save(order: Order): Order
     fun processOrder(order: Order): Order
+    fun findById(id: UUID): Order
+    fun findByAll(): List<Order>
+    fun deleteById(id: UUID)
+    fun updateOrderStatus(id: UUID, status: OrderStatusEnum)
 }
 
 class OrderService(
@@ -43,7 +50,7 @@ class OrderService(
     }
 
     @Transactional
-    override fun create(order: Order): Order {
+    override fun save(order: Order): Order {
         return orderRepository.save(order.apply {
             totalAmount = order.calculateTotal()
         })
@@ -52,7 +59,7 @@ class OrderService(
     @Transactional
     override fun processOrder(order: Order): Order {
         checkAvailability(order)
-        val order = create(order)
+        val order = save(order)
 
         eventProducers.publishOrderCreated(
             OrderCreatedEvent(
@@ -72,4 +79,26 @@ class OrderService(
         )
         return order
     }
+
+    override fun findById(id: UUID): Order {
+        return orderRepository.findById(id).orElseThrow {
+            NotFoundException("Record not found $id")
+        }
+    }
+
+    override fun findByAll(): List<Order> {
+        return orderRepository.findAll()
+    }
+
+    override fun deleteById(id: UUID) {
+        orderRepository.deleteById(id)
+    }
+
+    override fun updateOrderStatus(id: UUID, status: OrderStatusEnum) {
+        val order = findById(id)
+        order.status = status
+        save(order)
+    }
+
+
 }
