@@ -11,7 +11,7 @@ spring:
       properties:
         spring.json.trusted.packages: "com.example.kafka.event,com.example.ms_order.*"
 
-        spring.json.type.mapping: "OrderCreatedEvent:com.example.kafka.event.OrderCreatedEvent,AvailabilityCheckEvent:com.example.kafka.event.AvailabilityCheckEvent"
+#        spring.json.type.mapping: "OrderCreatedEvent:com.example.kafka.event.OrderCreatedEvent,AvailabilityCheckEvent:com.example.kafka.event.AvailabilityCheckEvent"
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -37,7 +37,7 @@ spring:
 server:
   port: 8082
 
-order:
+stock:
   service:
     url: http://localhost:8084/api/stocks
 

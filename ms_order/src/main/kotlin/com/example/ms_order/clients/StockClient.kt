@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody
 
 @FeignClient(
     name = "stock-service",
-    url = $$"${order.service.url}"
+    url = $$"${stock.service.url}"
 )
 interface StockClient {
     @GetMapping("/{id}")
