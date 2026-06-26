@@ -2,19 +2,23 @@ package com.example.ms_stock.configs
 
 import feign.RequestInterceptor
 import feign.RequestTemplate
-import org.springframework.security.core.context.SecurityContextHolder
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.stereotype.Component
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.request.ServletRequestAttributes
 
 @Component
 class FeignClientInterceptor : RequestInterceptor {
 
     override fun apply(template: RequestTemplate) {
-        val authentication = SecurityContextHolder.getContext().authentication
+        val attributes = RequestContextHolder.getRequestAttributes() as? ServletRequestAttributes
 
-        if (authentication != null && authentication.isAuthenticated) {
-            val details = authentication.details
-            if (details is String && details.startsWith("Bearer ")) {
-                template.header("Authorization", details)
+        if (attributes != null) {
+            val request: HttpServletRequest = attributes.request
+            val authHeader = request.getHeader("Authorization")
+
+            if (!authHeader.isNullOrBlank()) {
+                template.header("Authorization", authHeader)
             }
         }
     }
