@@ -42,7 +42,7 @@ class SecurityConfiguration(
                     ).permitAll()
 
                     .requestMatchers("/actuator/health").permitAll()
-                    .anyRequest().hasAuthority("ROLE_ADMIN")
+                    .anyRequest().permitAll()
             }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .exceptionHandling { it.authenticationEntryPoint(customAuthenticationEntryPoint) }

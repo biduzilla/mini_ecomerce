@@ -2,25 +2,44 @@ spring:
   kafka:
     bootstrap-servers: localhost:9094
 
+    # ✅ ADICIONADO: Configuração do consumer
+    consumer:
+      group-id: stock-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      enable-auto-commit: false
+      properties:
+        spring.json.trusted.packages: "com.example.kafka.event,com.example.ms_stock.*"
+        # Se precisar de mapeamento de tipos (igual ao ms_order)
+        # spring.json.type.mapping: "OrderCreatedEvent:com.example.kafka.event.OrderCreatedEvent"
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
 
-    template:
-      default-topic: estoque.baixo
+    # ⚠️ OPCIONAL: default-topic (só use se fizer sentido para seu caso)
+    # template:
+    #   default-topic: estoque.baixo
 
   application:
     name: ms_stock
+
   flyway:
     depends-on: entityManagerFactory
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ms
     username: ms_user
     password: ms123
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update  # ⚠️ Em produção: none ou validate
     show-sql: true
     format_sql: true
 
@@ -33,7 +52,7 @@ security:
 
 product:
   service:
-    url: http://device-service:8083/api/products
+    url: http://localhost:8083/api/products
 
 springdoc:
   api-docs:

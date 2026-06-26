@@ -41,6 +41,8 @@ class SecurityConfiguration(
                         "/webjars/**"
                     ).permitAll()
 
+                    .requestMatchers("/api/products/**").permitAll()
+
                     .requestMatchers("/actuator/health").permitAll()
                     .anyRequest().hasAuthority("ROLE_ADMIN")
             }

@@ -1,5 +1,8 @@
-package com.br.ms_product.exceptions
+package com.example.ms_product.exceptions
 
+import com.br.ms_product.exceptions.BadRequestException
+import com.br.ms_product.exceptions.InvalidTokenException
+import com.br.ms_product.exceptions.NotFoundException
 import com.example.ms_product.dtos.ErrorDTO
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus

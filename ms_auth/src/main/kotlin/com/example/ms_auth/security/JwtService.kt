@@ -6,6 +6,7 @@ import io.jsonwebtoken.*
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.stereotype.Service
 import java.security.KeyFactory
 import java.security.PrivateKey
 import java.security.PublicKey
@@ -29,6 +30,7 @@ enum class TokenType(val claimValue: String) {
     REFRESH_TOKEN("refresh_token"), ACCESS_TOKEN("access_token")
 }
 
+@Service
 class JwtService(
     @Value($$"${security.jwt.private-key}") private val privateKeyResource: Resource,
     @Value($$"${security.jwt.public-key}") private val publicKeyResource: Resource,

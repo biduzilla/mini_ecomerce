@@ -16,10 +16,10 @@ interface StockRepository: JpaRepository<Stock, UUID> {
         select 
             s
         from Stock s
-        where :search is null or s.productId like %:search%
+        where :search is null or s.productId = :search
     """
     )
-    fun search(@Param("search") search: String?, pageable: Pageable): Page<Stock>
+    fun search(@Param("search") search: UUID?, pageable: Pageable): Page<Stock>
 
     @Query(
         """

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ms-stock
+    name: ms_stock
   profiles:
     active: dev
   config:

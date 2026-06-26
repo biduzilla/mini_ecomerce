@@ -35,7 +35,7 @@ class StockService(
         search: String?
     ): Page<Stock> {
         val pageable = PageRequest.of(page, size)
-        return stockRepo.search(search, pageable)
+        return stockRepo.search(UUID.fromString(search), pageable)
     }
 
     override fun findById(id: UUID): Stock {

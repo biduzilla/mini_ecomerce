@@ -5,6 +5,7 @@ import com.example.ms_auth.exceptions.NotFoundException
 import com.example.ms_auth.models.User
 import com.example.ms_auth.repositories.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.stereotype.Service
 
 interface IUserService {
     fun save(user: User): User
@@ -12,6 +13,7 @@ interface IUserService {
     fun findByEmail(email: String): User
 }
 
+@Service
 class UserService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder
