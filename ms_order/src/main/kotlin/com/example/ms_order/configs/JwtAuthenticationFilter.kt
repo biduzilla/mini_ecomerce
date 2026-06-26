@@ -1,9 +1,11 @@
 package com.example.ms_order.configs
 
+import com.example.ms_order.producers.OrderEventProducers
 import com.example.ms_order.security.IJwtService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
@@ -16,6 +18,10 @@ class JwtAuthenticationFilter(
     private val jwtService: IJwtService,
     private val handlerExceptionResolver: HandlerExceptionResolver
 ) : OncePerRequestFilter() {
+    companion object {
+        private val logger = LoggerFactory.getLogger(OrderEventProducers::class.java)
+    }
+
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -41,8 +47,10 @@ class JwtAuthenticationFilter(
             }
             filterChain.doFilter(request, response)
         } catch (e: Exception) {
+            Companion.logger.info("JwtAuthenticationFilter ex - ${e.message}")
             SecurityContextHolder.clearContext()
             handlerExceptionResolver.resolveException(request, response, null, e)
+            return
         }
     }
 }

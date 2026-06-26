@@ -96,6 +96,7 @@ class OrderService(
         orderRepository.deleteById(id)
     }
 
+    @Transactional
     override fun updateOrderStatus(id: UUID, status: OrderStatusEnum) {
         val order = findById(id)
         order.status = status

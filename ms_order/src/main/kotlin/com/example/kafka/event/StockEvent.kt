@@ -6,13 +6,13 @@ import java.util.UUID
 data class AvailabilityCheckEvent(
     val eventId: UUID = UUID.randomUUID(),
     val timestamp: LocalDateTime = LocalDateTime.now(),
-    val orderId: UUID,
-    val available: Boolean,
-    val details: List<ItemAvailabilityDetailEvent>
+    val orderId: UUID= UUID.randomUUID(),
+    val available: Boolean=false,
+    val details: List<ItemAvailabilityDetailEvent> = listOf()
 )
 
 data class ItemAvailabilityDetailEvent(
-    val productId: UUID,
-    val requested: Long,
-    val available: Long
+    val productId: UUID= UUID.randomUUID(),
+    val requested: Long=0L,
+    val available: Long=0L
 )

@@ -165,18 +165,9 @@ class StockController(
             description = "Todos os itens possuem estoque suficiente",
             content = [Content(schema = Schema(implementation = AvailabilityCheckResponse::class))]
         ),
-        ApiResponse(
-            responseCode = "409",
-            description = "Pelo menos um item não possui estoque suficiente",
-            content = [Content(schema = Schema(implementation = AvailabilityCheckResponse::class))]
-        )
     )
     fun checkAvailability(@RequestBody request: AvailabilityCheckRequest): ResponseEntity<AvailabilityCheckResponse> {
         val response = stockService.checkAvailability(request)
-        return if (response.available) {
-            ResponseEntity.ok(response)
-        } else {
-            ResponseEntity.status(HttpStatus.CONFLICT).body(response)
-        }
+        return ResponseEntity.ok(response)
     }
 }

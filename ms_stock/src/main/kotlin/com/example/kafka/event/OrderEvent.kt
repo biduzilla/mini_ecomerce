@@ -7,7 +7,7 @@ import java.util.*
 
 data class OrderCreatedEvent(
     val eventId: UUID = UUID.randomUUID(),
-    val orderId: UUID,
+    val orderId: UUID=UUID.randomUUID(),
     val timestamp: LocalDateTime = LocalDateTime.now(),
     var status: OrderStatusEnum = OrderStatusEnum.PENDING,
     var totalAmount: BigDecimal = BigDecimal.ZERO,
@@ -15,7 +15,7 @@ data class OrderCreatedEvent(
 )
 
 data class OrderItemEvent(
-    var id: UUID,
+    var id: UUID=UUID.randomUUID(),
     var productId: UUID? = null,
     var quantity: Int = 1,
     var unitPrice: BigDecimal = BigDecimal.ZERO,
