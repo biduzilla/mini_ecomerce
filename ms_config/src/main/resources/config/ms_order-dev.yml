@@ -9,9 +9,9 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       enable-auto-commit: false
       properties:
-        spring.json.trusted.packages: "com.br.kafka.event,com.example.ms_order.*"
-        spring.json.type.mapping: "StockInsufficientEvent:com.br.kafka.event.StockInsufficientEvent,StockReservedEvent:com.br.kafka.event.StockReservedEvent"
+        spring.json.trusted.packages: "com.example.kafka.event,com.example.ms_order.*"
 
+        spring.json.type.mapping: "OrderCreatedEvent:com.example.kafka.event.OrderCreatedEvent,AvailabilityCheckEvent:com.example.kafka.event.AvailabilityCheckEvent"
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

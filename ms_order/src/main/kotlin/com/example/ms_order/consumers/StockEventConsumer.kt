@@ -17,7 +17,7 @@ class StockEventConsumer(
 
     @KafkaListener(
         topics = ["stock.check-result"],
-        groupId = "\${spring.kafka.consumer.group-id:order-service-group}"
+        groupId = $$"${spring.kafka.consumer.group-id:order-service-group}"
     )
     fun handleAvailabilityCheck(event: AvailabilityCheckEvent) {
         logger.info("📩 Recebido stock.check-result: ${event.eventId} | Pedido: ${event.orderId}")

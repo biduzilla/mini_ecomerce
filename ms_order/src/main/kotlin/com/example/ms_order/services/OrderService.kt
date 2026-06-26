@@ -12,6 +12,7 @@ import com.example.ms_order.models.Order
 import com.example.ms_order.producers.OrderEventProducers
 import com.example.ms_order.repositories.OrderRepository
 import jakarta.transaction.Transactional
+import org.springframework.stereotype.Service
 import java.util.*
 
 interface IOrderService {
@@ -23,6 +24,7 @@ interface IOrderService {
     fun updateOrderStatus(id: UUID, status: OrderStatusEnum)
 }
 
+@Service
 class OrderService(
     private val orderRepository: OrderRepository,
     private val stockClient: StockClient,
