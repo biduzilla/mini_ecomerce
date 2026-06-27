@@ -37,6 +37,10 @@ class OrderEventConsumer(
 
             val checkResponse = stockService.checkAvailability(checkRequest)
 
+            if (checkResponse.available) {
+                stockService.deductStock(checkRequest)
+            }
+
             val availabilityEvent = AvailabilityCheckEvent(
                 orderId = event.orderId,
                 available = checkResponse.available,

@@ -22,6 +22,7 @@ interface IStockService {
     fun deleteById(id: UUID)
     fun findByProductId(productId: UUID): Stock
     fun checkAvailability(request: AvailabilityCheckRequest): AvailabilityCheckResponse
+    fun deductStock(request: AvailabilityCheckRequest)
 }
 
 @Service
@@ -82,6 +83,24 @@ class StockService(
             AvailabilityCheckResponse(true, emptyList())
         } else {
             AvailabilityCheckResponse(false, details)
+        }
+    }
+
+    @Transactional
+    override fun deductStock(request: AvailabilityCheckRequest) {
+        val productsIds = request.items.map { it.productId }
+        val stocks = stockRepo.findAllByProductIdIn(productsIds).associateBy { it.productId!! }
+
+        request.items.forEach { item ->
+            val stock = stocks[item.productId]
+                ?: throw NotFoundException("Estoque não encontrado para o produto: ${item.productId}")
+
+            if (stock.availableQuantity < item.quantity) {
+                throw IllegalStateException("Estoque insuficiente para o produto: ${item.productId}")
+            }
+
+            stock.availableQuantity -= item.quantity
+            stockRepo.save(stock)
         }
     }
 }

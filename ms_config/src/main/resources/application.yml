@@ -21,4 +21,4 @@ logging:
     org.springframework.context.annotation: DEBUG
 
 server:
-  port: 8071
+  port: 8080
