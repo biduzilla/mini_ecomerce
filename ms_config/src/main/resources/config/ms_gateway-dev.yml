@@ -39,3 +39,18 @@ resilience4j:
         waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 2
         automaticTransitionFromOpenToHalfOpenEnabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Auth & User Service
+        url: /docs/ms-auth/v3/api-docs
+      - name: Product Service
+        url: /docs/ms-product/v3/api-docs
+      - name: Order Service
+        url: /docs/ms-order/v3/api-docs
+      - name: Stock Service
+        url: /docs/ms-stock/v3/api-docs
+  api-docs:
+    path: /v3/api-docs

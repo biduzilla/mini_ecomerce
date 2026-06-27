@@ -14,7 +14,7 @@ import org.springframework.web.servlet.function.ServerResponse
 import java.net.URI
 
 @Configuration
-class AuthServiceAuth {
+class AuthServiceRoute {
     companion object {
         private const val MS_AUTH_URI = "http://localhost:8081"
         private val FALLBACK_URI = URI.create("forward:/fallbackRoute")
